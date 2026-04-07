@@ -1,0 +1,57 @@
+else neb.style.transform = `translate(${-x * 0.2}px, ${-y * 0.1}px)`;
+        });
+    });
+    
+    // Lấp lánh thêm cho các tim (hiệu ứng glow động)
+    const hearts = document.querySelectorAll('.heart, .small-heart');
+    setInterval(() => {
+        hearts.forEach(heart => {
+            const randomGlow = Math.random() * 0.6 + 0.4;
+            heart.style.boxShadow = `0 0 ${12 + randomGlow * 15}px #ff6699, 0 0 ${20 + randomGlow * 12}px #ff3366`;
+        });
+    }, 800);
+</script>
+
+<!-- Thêm chút tương tác: khi click vào vũ trụ sẽ tạo thêm tim lấp lánh -->
+<script>
+    document.body.addEventListener('click', (e) => {
+        const rippleHeart = document.createElement('div');
+        rippleHeart.innerHTML = '❤️';
+        rippleHeart.style.position = 'absolute';
+        rippleHeart.style.left = e.clientX + 'px';
+        rippleHeart.style.top = e.clientY + 'px';
+        rippleHeart.style.fontSize = '30px';
+        rippleHeart.style.pointerEvents = 'none';
+        rippleHeart.style.zIndex = '9999';
+        rippleHeart.style.transform = 'translate(-50%, -50%) scale(0)';
+        rippleHeart.style.opacity = '1';
+        rippleHeart.style.transition = 'all 0.6s cubic-bezier(0.2, 1, 0.3, 1)';
+        rippleHeart.style.filter = 'drop-shadow(0 0 12px #ff3388)';
+        document.body.appendChild(rippleHeart);
+        
+        setTimeout(() => {
+            rippleHeart.style.transform = 'translate(-50%, -50%) scale(2.5)';
+            rippleHeart.style.opacity = '0';
+        }, 10);
+        setTimeout(() => rippleHeart.remove(), 700);
+        
+        // Tạo thêm vài ngôi sao lân cận ảo
+        for(let i=0;i<3;i++) {
+            const spark = document.createElement('div');
+            spark.style.position = 'absolute';
+            spark.style.left = e.clientX + (Math.random() - 0.5) * 60 + 'px';
+            spark.style.top = e.clientY + (Math.random() - 0.5) * 60 + 'px';
+            spark.style.width = '4px';
+            spark.style.height = '4px';
+            spark.style.background = '#ffc0cb';
+            spark.style.borderRadius = '50%';
+            spark.style.boxShadow = '0 0 12px gold';
+            spark.style.pointerEvents = 'none';
+            spark.style.zIndex = '9998';
+            document.body.appendChild(spark);
+            setTimeout(() => spark.remove(), 400);
+        }
+    });
+</script>
+</body>
+</html>
